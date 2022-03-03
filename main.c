@@ -29,26 +29,32 @@ int main(int argc, char **argv){
         strcat(text, " ");
         strcat(text, palavra);
     }
-    String* texto;
-    Suffix** aSuf;
+    /*char text[N];
+    fgetc(entrada);
+    int cont = 0;
+    while (!feof(entrada)){        
+        char c = fgetc(entrada);
+        if(cont>1){
+            char ant = text[cont-1];
+            if(c == ' ' &&  ant != ' ')
+                text[cont++] = c;
+            else if(c == '\n' &&  ant != '\n')
+                text[cont++] = c;
+        }else if(c != '\n' && c != ' ')
+            text[cont++] = c;
+    }*/
+    //printf("%s\n", text);
+    String* texto = create_string(text);
+    Suffix** aSuf = create_suf_array(texto, N);
+    
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':
-                texto = create_string(text);
-                aSuf = create_suf_array(texto, N);
-                
                 print_suf_array(aSuf, N);
-                
-                destroy_suf_array(aSuf, N);
                 break;
             case 'o':
-                texto = create_string(text);
-                aSuf = create_suf_array(texto, N);
-                
                 sort_suf_array(aSuf, N);
                 print_suf_array(aSuf, N);
-                
-                //destroy_suf_array(aSuf, N);
                 break;
             case 'r':
                 break;
@@ -61,6 +67,8 @@ int main(int argc, char **argv){
         }
     }
 
+    destroy_string(texto);
+    destroy_suf_array(aSuf, N);
     fclose(entrada);
     fclose(saida);
     return EXIT_SUCCESS;
