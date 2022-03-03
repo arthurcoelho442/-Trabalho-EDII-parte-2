@@ -20,13 +20,12 @@ void destroy_suf_array(Suffix* *a, int N);
 
 void print_suf_array(Suffix* *a, int N);
 
-void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto);
-
 // Use uma (ou mais) funcoes deste tipo para ordenar
 // o arry de sufixos usando o qsort e outro metodo de sua escolha
 void sort_suf_array(Suffix* *a, int N);
+int comp_suf_array(const void *pa, const void * pb);
 
-void qSort_suf_array(Suffix* *a, int N);
+void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto);
 
 int rank(Suffix* *a, int N, String *query);
 

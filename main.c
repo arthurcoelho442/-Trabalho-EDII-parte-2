@@ -3,6 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <ctype.h>
+#include "str.h"
 #include "suffix.h"
 
 int main(int argc, char **argv){
@@ -46,35 +48,49 @@ int main(int argc, char **argv){
     //printf("%s\n", text);
     String* texto = create_string(text);
     Suffix** aSuf = create_suf_array(texto, N);
-
+    
+    int contexto = atoi(argv[3]);
+    String* query;
+    char aux[1000];
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':
                 print_suf_array(aSuf, N);
                 break;
             case 'o':
-                //sort_suf_array(aSuf, N);
-                qSort_suf_array(aSuf, N);
+                //qsort(aSuf, N, sizeof(Suffix*), comp_suf_array);
+                sort_suf_array(aSuf, N);
                 print_suf_array(aSuf, N);
                 break;
             case 'r':
                 break;
             case 'c':
-                int contexto = atoi(argv[3]);
-                String* query = create_string(argv[4]);
+                query = create_string(argv[4]);
                 sort_suf_array(aSuf, N);
                 procuraSuffix(aSuf, N, query, contexto, texto);
                 break;
             case 's':
-
+                sort_suf_array(aSuf, N);
+                scanf("%[^\n]s", aux);
+                scanf("%*[^\n]");
+                scanf("%*c");
+                printf("|%s|\n", aux);
+                while(!isspace(aux[0])) {
+                    query = create_string(aux);
+                    procuraSuffix(aSuf, N, query, contexto, texto);
+                    scanf("%[^\n]", aux);
+                    scanf("%*[^\n]");
+                    scanf("%*c");
+                    printf("|%s|\n", aux);
+                }
                 break;
             default:
                 break;
         }
     }
-
-    destroy_string(texto);
-    destroy_suf_array(aSuf, N);
+    //destroy_string(query);
+    //destroy_string(texto);
+    //destroy_suf_array(aSuf, N);
     fclose(entrada);
     fclose(saida);
     return EXIT_SUCCESS;
