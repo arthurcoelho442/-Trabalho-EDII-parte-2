@@ -46,21 +46,27 @@ int main(int argc, char **argv){
     //printf("%s\n", text);
     String* texto = create_string(text);
     Suffix** aSuf = create_suf_array(texto, N);
-    
+
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':
                 print_suf_array(aSuf, N);
                 break;
             case 'o':
-                sort_suf_array(aSuf, N);
+                //sort_suf_array(aSuf, N);
+                qSort_suf_array(aSuf, N);
                 print_suf_array(aSuf, N);
                 break;
             case 'r':
                 break;
             case 'c':
+                int contexto = atoi(argv[3]);
+                String* query = create_string(argv[4]);
+                sort_suf_array(aSuf, N);
+                procuraSuffix(aSuf, N, query, contexto, texto);
                 break;
             case 's':
+
                 break;
             default:
                 break;
