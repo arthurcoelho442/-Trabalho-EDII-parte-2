@@ -22,19 +22,33 @@ int main(int argc, char **argv){
     int N;
     fscanf(entrada, "%d", &N);
     
-    char texto[N];
+    char text[N];
     char palavra[100];
-    fscanf(entrada, "%s", texto);
+    fscanf(entrada, "%s", text);
     while (fscanf(entrada, "%s", palavra) != EOF){        
-        strcat(texto, " ");
-        strcat(texto, palavra);
+        strcat(text, " ");
+        strcat(text, palavra);
     }
-    
+    String* texto;
+    Suffix** aSuf;
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':
+                texto = create_string(text);
+                aSuf = create_suf_array(texto, N);
+                
+                print_suf_array(aSuf, N);
+                
+                destroy_suf_array(aSuf, N);
                 break;
             case 'o':
+                texto = create_string(text);
+                aSuf = create_suf_array(texto, N);
+                
+                sort_suf_array(aSuf, N);
+                print_suf_array(aSuf, N);
+                
+                //destroy_suf_array(aSuf, N);
                 break;
             case 'r':
                 break;
