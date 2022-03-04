@@ -52,8 +52,15 @@ int comp_suf_array(const void *pa, const void * pb){
     
     //char* str1 = text+(a->index);
     //char* str2 = text+(b->index);
-
-    return 0;//strcmp(str1, str2);
+    printf("\n");
+    printf("%ld ||  ", (Suffix*)pa);
+    printf("%ld\n", (Suffix*)pb);
+    char* text = ((Suffix*)pa)->s->c;
+    char* str1 = text+((Suffix*)pa)->index;
+    char* str2 = text+((Suffix*)pb)->index;
+    //printf("%s  //  ", str1);
+    //printf("%s\n", str2);
+    return strcmp(str1, str2);
 }
 void sort_suf_array(Suffix* *a, int N){
     char* text = a[0]->s->c;
