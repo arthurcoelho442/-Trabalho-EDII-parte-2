@@ -75,10 +75,10 @@ int main(int argc, char **argv){
                 scanf("%*[^\n]");
                 scanf("%*c");
                 printf("|%s|\n", aux);
-                while(!isspace(aux[0])) {
+                while(!isspace(aux[0]) || strlen(aux)>1) {
                     query = create_string(aux);
                     procuraSuffix(aSuf, N, query, contexto, texto);
-                    scanf("%[^\n]", aux);
+                    scanf("%[^\n]s", aux);
                     scanf("%*[^\n]");
                     scanf("%*c");
                     printf("|%s|\n", aux);
