@@ -155,6 +155,8 @@ void mergesort(Suffix** a, int l, int r){
     mergesort(a, l, m);  
     mergesort(a, m+1, r);
     merge(a, l, m, r);
+
+    free(aux);
 }
 
 /*****************************************************

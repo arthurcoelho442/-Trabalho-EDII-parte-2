@@ -38,7 +38,7 @@ int main(int argc, char **argv){
     Suffix** aSuf = create_suf_array(texto, N);
     int contexto;
     String* query;
-    char aux[1000];
+    char pesquisa[1000];
     double time = 0.000;
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
@@ -47,7 +47,6 @@ int main(int argc, char **argv){
                 break;
             case 'o':
                 //printf(" ");
-                //qsort(aSuf[0], N, sizeof(Suffix) + sizeof(String), comp_suf_array);
                 sort_suf_array(aSuf, N);
                 print_suf_array(aSuf, N);
                 break;
@@ -75,7 +74,7 @@ int main(int argc, char **argv){
                 mergesort(aSuf,0,N-1);
                 print_suf_array(aSuf, N);
                 printCounters("mergesort", time);
-
+                
                 heapsort(aSuf,0,N-1);
                 print_suf_array(aSuf, N);
                 printCounters("heapsort", time);
@@ -86,30 +85,30 @@ int main(int argc, char **argv){
                 query = create_string(argv[4]);
                 sort_suf_array(aSuf, N);
                 procuraSuffix(aSuf, N, query, contexto, texto);
+                destroy_string(query);
                 break;
             case 's':
                 contexto = atoi(argv[3]);
                 sort_suf_array(aSuf, N);
-                scanf("%[^\n]s", aux);
+                scanf("%[^\n]s", pesquisa);
                 scanf("%*[^\n]");
                 scanf("%*c");
-                printf("|%s|\n", aux);
-                while(!isspace(aux[0]) || strlen(aux)>1) {
-                    query = create_string(aux);
+                while(!isspace(pesquisa[0]) || strlen(pesquisa)>1) {
+                    query = create_string(pesquisa);
                     procuraSuffix(aSuf, N, query, contexto, texto);
-                    scanf("%[^\n]s", aux);
+                    scanf("%[^\n]s", pesquisa);
                     scanf("%*[^\n]");
                     scanf("%*c");
-                    printf("|%s|\n", aux);
+                    printf("|%s|\n", pesquisa);
+                    destroy_string(query);
                 }
                 break;
             default:
                 break;
         }
     }
-    //destroy_string(query);
-    //destroy_string(texto);
-    //destroy_suf_array(aSuf, N);
+    destroy_string(texto);
+    destroy_suf_array(aSuf, N);
     fclose(entrada);
     fclose(saida);
     return EXIT_SUCCESS;
