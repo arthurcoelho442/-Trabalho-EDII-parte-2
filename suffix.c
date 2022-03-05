@@ -44,24 +44,17 @@ void print_suf_array(Suffix** a, int N){
 // Use uma (ou mais) funcoes deste tipo para ordenar
 // o arry de sufixos usando o qsort e outro metodo de sua escolha
 int comp_suf_array(const void *pa, const void * pb){
-    //const Suffix* a = pa;
-    //const Suffix* b = pb;
-    
-    //char* text = pa->s->c;
-    //printf("\n%s\n", text);
-    
-    //char* str1 = text+(a->index);
-    //char* str2 = text+(b->index);
-    printf("\n");
-    printf("%ld ||  ", (Suffix*)pa);
-    printf("%ld\n", (Suffix*)pb);
-    char* text = ((Suffix*)pa)->s->c;
-    char* str1 = text+((Suffix*)pa)->index;
-    char* str2 = text+((Suffix*)pb)->index;
-    //printf("%s  //  ", str1);
-    //printf("%s\n", str2);
-    return strcmp(str1, str2);
+    String str1;
+    str1.c = (*(Suffix**)pa)->s->c;
+    str1.len = (*(Suffix**)pa)->index;
+    String str2;
+    str2.len = (*(Suffix**)pb)->index;
+    str2.c = (*(Suffix**)pb)->s->c;
+    char* str3 = str1.c+str1.len;
+    char* str4 = str2.c+str2.len;
+    return strcmp(str3, str4);
 }
+
 void sort_suf_array(Suffix* *a, int N){
     char* text = a[0]->s->c;
     
@@ -86,7 +79,6 @@ void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto
         String* text = a[i]->s;
         igual = equals_substring(text, a[i]->index, text->len, query);
         if(igual){
-            //texto->c[query->len+a[i]->index]
             if(a[i]->index - contexto <=0){
                 indice_inicio = 0;
             } else {
