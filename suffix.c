@@ -44,11 +44,15 @@ void print_suf_array(Suffix** a, int N){
 // Use uma (ou mais) funcoes deste tipo para ordenar
 // o arry de sufixos usando o qsort e outro metodo de sua escolha
 int comp_suf_array(const void *pa, const void * pb){
-    char* text = ((Suffix*)pa)->s->c;
-    char* str1 = text+((Suffix*)pa)->index;
-    char* str2 = text+((Suffix*)pb)->index;
-    
-    return strcmp(str1, str2);
+    String str1;
+    str1.c = (*(Suffix**)pa)->s->c;
+    str1.len = (*(Suffix**)pa)->index;
+    String str2;
+    str2.len = (*(Suffix**)pb)->index;
+    str2.c = (*(Suffix**)pb)->s->c;
+    char* str3 = str1.c+str1.len;
+    char* str4 = str2.c+str2.len;
+    return strcmp(str3, str4);
 }
 void sort_suf_array(Suffix** a, int N){
     char* text = a[0]->s->c;

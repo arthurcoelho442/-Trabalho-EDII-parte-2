@@ -44,7 +44,7 @@ int strLess(Suffix *a, Suffix *b){
 /****    impressao das estatisticas dos algoritmos    ****/
 void printCounters(char *s, double time){
   printf("\n|%s comparacoes: %d char:%d trocas %d atribuicoes: %d|", s,compCount, chCompCount, exchCount, copyCount);
-  printf("\n|%s\t%0.3lf (s)|\n\n", s, time);
+  printf("\n|%s\t%lf (s)|\n\n", s, time);
   resetCounters();   
 }
     
@@ -155,8 +155,6 @@ void mergesort(Suffix** a, int l, int r){
     mergesort(a, l, m);  
     mergesort(a, m+1, r);
     merge(a, l, m, r);
-
-    free(aux);
 }
 
 /*****************************************************
@@ -184,5 +182,4 @@ void heapsort(Suffix** a, int l, int r){
             fixDown(&pq(0), 1, --n); 
         }
 }
-  
 /****************************************************/
