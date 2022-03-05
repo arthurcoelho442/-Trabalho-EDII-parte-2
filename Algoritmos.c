@@ -27,24 +27,24 @@ void resetCounters(){
 /****  e contagem das comparações  ****/
 int strLess(Suffix *a, Suffix *b){
     char* text = a->s->c;
-    char* str1 = text+a->index;
-    char* str2 = text+b->index;
-
-    int i = 0;
+    int idA = a->index;
+    int idB = b->index;
+    
     compCount++;
     for(;;){
         chCompCount++;
-        if(str1[i] == '\0')  return (str2[i] != '\0');
-        if(str2[i] == '\0')  return 0;
-        if(str1[i] < str2[i]) return 1;
-        if(str1[i++] > str2[i++]) return 0;
-    }    
+        if(text[idA] == '\0')  return (text[idB] != '\0');
+        if(text[idB] == '\0')  return 0;
+        if(text[idA] < text[idB]) return 1;
+        if(text[idA++] > text[idB++]) return 0;
+
+    }
 }
 
 /****    impressao das estatisticas dos algoritmos    ****/
-void printCounters(char *s){
-  printf("\n|%s comparacoes: %d char:%d trocas %d atribuicoes: %d|\n\n",
-         s,compCount, chCompCount, exchCount, copyCount);
+void printCounters(char *s, double time){
+  printf("\n|%s comparacoes: %d char:%d trocas %d atribuicoes: %d|", s,compCount, chCompCount, exchCount, copyCount);
+  printf("\n|%s\t%0.3lf (s)|\n\n", s, time);
   resetCounters();   
 }
     
@@ -54,6 +54,7 @@ void printCounters(char *s){
 
 void bubblesort(Suffix** a, int n){
     int i, j; 
+
     for(i = 1; i < n; i++)
         for(j = i; j > 0; j--) 
             compexch(a[j-1], a[j]);

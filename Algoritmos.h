@@ -12,7 +12,7 @@ void mergeAB(Suffix** a,Suffix** b,Suffix** c,int N,int M);
 void mergesort(Suffix** a, int l, int r);
 void heapsort(Suffix** a, int l, int r);
 
-void printCounters(char *s);
+void printCounters(char *s, double time);
 void resetCounters();
 
 #endif

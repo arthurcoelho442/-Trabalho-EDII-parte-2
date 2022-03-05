@@ -39,6 +39,7 @@ int main(int argc, char **argv){
     int contexto;
     String* query;
     char aux[1000];
+    double time = 0.000;
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':
@@ -53,31 +54,31 @@ int main(int argc, char **argv){
             case 'r':
                 bubblesort(aSuf,N);
                 print_suf_array(aSuf, N);
-                printCounters("bubblesort");
+                printCounters("bubblesort", time);
 
                 selectionsort(aSuf,N);
                 print_suf_array(aSuf, N);
-                printCounters("selectionsort");
+                printCounters("selectionsort", time);
 
                 insertionsort(aSuf,N);
                 print_suf_array(aSuf, N);
-                printCounters("insertionsort");
+                printCounters("insertionsort", time);
 
                 shellsort(aSuf,N);
                 print_suf_array(aSuf, N);
-                printCounters("shellsort");
+                printCounters("shellsort", time);
 
                 quicksort(aSuf,0,N-1);
                 print_suf_array(aSuf, N);
-                printCounters("quicksort");
+                printCounters("quicksort", time);
 
                 mergesort(aSuf,0,N-1);
                 print_suf_array(aSuf, N);
-                printCounters("mergesort");
+                printCounters("mergesort", time);
 
                 heapsort(aSuf,0,N-1);
                 print_suf_array(aSuf, N);
-                printCounters("heapsort");
+                printCounters("heapsort", time);
 
                 break;
             case 'c':
