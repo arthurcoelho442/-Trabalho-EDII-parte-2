@@ -43,8 +43,8 @@ int strLess(Suffix *a, Suffix *b){
 
 /****    impressao das estatisticas dos algoritmos    ****/
 void printCounters(char *s, double time){
-  printf("\n|%s comparacoes: %d char:%d trocas %d atribuicoes: %d|", s,compCount, chCompCount, exchCount, copyCount);
-  printf("\n|%s\t%lf (s)|\n\n", s, time);
+  //printf("\n|%s comparacoes: %d char:%d trocas %d atribuicoes: %d|", s,compCount, chCompCount, exchCount, copyCount);
+  printf("|%s\t%lf (s)|\n", s, time);
   resetCounters();   
 }
     
@@ -131,30 +131,6 @@ void quicksort(Suffix** a, int l, int r){
     i = partition(a, l, r);
     quicksort(a, l, i-1);
     quicksort(a, i+1, r);
-}
-
-/*****************************************************
-*********           mergesort               **********
-*****************************************************/
-
-/*** vetor auxiliar - deve ser alocado (adiante) ****/
-Suffix** aux;
-void merge(Suffix** a, int l, int m, int r){ 
-    int i, j, k;
-    for(i = m+1; i > l; i--) copy(aux[i-1],a[i-1]);
-    for(j = m; j < r; j++)   copy(aux[r+m-j],a[j+1]);
-    for(k = l; k <= r; k++)
-        if(less(aux[i], aux[j])) 
-        copy(a[k],aux[i++]) else copy(a[k],aux[j--]);
-}
-  
-void mergesort(Suffix** a, int l, int r){
-    aux = (Suffix**) malloc((r+1)*sizeof(Suffix*));
-    int m = (r+l)/2;
-    if (r <= l) return;
-    mergesort(a, l, m);  
-    mergesort(a, m+1, r);
-    merge(a, l, m, r);
 }
 
 /*****************************************************

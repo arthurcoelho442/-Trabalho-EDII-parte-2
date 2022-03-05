@@ -51,66 +51,90 @@ int main(int argc, char **argv){
                 qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);
                 print_suf_array(aSuf, N); 
 
-                printf("\nMy_sort_algo:\n");
-                aSuf = create_suf_array(texto, N);
-                sort_suf_array(aSuf, N);
-                print_suf_array(aSuf, N);
+                int escolha, exit=0;
+                while(escolha){
+                    printf("\nEscolha o proximo algoritmo de ordenacao");
+                    printf("\n[1] - bubblesort");
+                    printf("\n[2] - selectionsort");
+                    printf("\n[3] - insertionsort");
+                    printf("\n[4] - shellsort");
+                    printf("\n[5] - quicksort");
+                    printf("\n[6] - heapsort\n");
+                    scanf("%d", &escolha);
+                    switch (escolha){
+                        case 1://bubblesort
+                            printf("\nMy sort: bubblesort\n");
+                            bubblesort(aSuf,N);
+                            break;
+                        case 2://selectionsort
+                            printf("\nMy sort: selectionsort\n");   
+                            selectionsort(aSuf,N);
+                            break;
+                        case 3://insertionsort
+                            printf("\nMy sort: insertionsort\n");
+                            insertionsort(aSuf,N);
+                            break;
+                        case 4://shellsort
+                            printf("\nMy sort: shellsort\n");
+                            shellsort(aSuf,N);
+                            break;
+                        case 5://quicksort
+                            printf("\nMy sort: quicksort\n");
+                            quicksort(aSuf,0,N-1);
+                            break;
+                        case 6://heapsort
+                            printf("\nMy sort: heapsort\n");
+                            heapsort(aSuf,0,N-1);
+                            break;
+                        default :
+                            exit = 1;
+                            break;
+                    }
+                    if(exit == 1) break;
+                    else print_suf_array(aSuf, N);
+                }
                 break;
             case 'r':
                 init = clock();                             //pega o clock atual
                 qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);
                 fim = clock();                              //pega clock final da execução do algoritmo
                 time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
                 printCounters("System qsort:", time);
 
                 init = clock();                             //pega o clock atual
                 bubblesort(aSuf,N);
                 fim = clock();                              //pega clock final da execução do algoritmo
                 time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
                 printCounters("bubblesort", time);
 
                 init = clock();                             //pega o clock atual
                 selectionsort(aSuf,N);
                 fim = clock();                              //pega clock final da execução do algoritmo
                 time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
                 printCounters("selectionsort", time);
 
                 init = clock();                             //pega o clock atual
                 insertionsort(aSuf,N);
                 fim = clock();                              //pega clock final da execução do algoritmo
                 time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
                 printCounters("insertionsort", time);
 
                 init = clock();                             //pega o clock atual
                 shellsort(aSuf,N);
                 fim = clock();                              //pega clock final da execução do algoritmo
                 time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
                 printCounters("shellsort", time);
 
                 init = clock();                             //pega o clock atual
                 quicksort(aSuf,0,N-1);
                 fim = clock();                              //pega clock final da execução do algoritmo
                 time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
                 printCounters("quicksort", time);
-
-                init = clock();                             //pega o clock atual
-                mergesort(aSuf,0,N-1);
-                fim = clock();                              //pega clock final da execução do algoritmo
-                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
-                printCounters("mergesort", time);
                 
                 init = clock();                             //pega o clock atual
                 heapsort(aSuf,0,N-1);
                 fim = clock();                              //pega clock final da execução do algoritmo
                 time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
-                print_suf_array(aSuf, N);
                 printCounters("heapsort", time);
                 
                 break;
