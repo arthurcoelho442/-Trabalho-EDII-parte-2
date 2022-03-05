@@ -59,7 +59,7 @@ int main(int argc, char **argv){
             case 'r':
                 printf("System qsort:   ");
                 init = clock();                             //pega o clock atual
-                qsort(aSuf[0], N, sizeof(Suffix)+sizeof(String), comp_suf_array);                                        
+                qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);                                       
                 fim = clock();                              //pega clock final da execução do algoritmo
                 tempo = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
                 printf("%f(s)\n", tempo);
