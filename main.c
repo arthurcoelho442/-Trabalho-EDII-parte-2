@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include "str.h"
 #include "suffix.h"
+#include "Algoritmos.h"
 
 int main(int argc, char **argv){
     FILE* entrada;                                          //Arquivo de entrada para o sistema
@@ -31,25 +32,11 @@ int main(int argc, char **argv){
         strcat(text, " ");
         strcat(text, palavra);
     }
-    /*char text[N];
-    fgetc(entrada);
-    int cont = 0;
-    while (!feof(entrada)){        
-        char c = fgetc(entrada);
-        if(cont>1){
-            char ant = text[cont-1];
-            if(c == ' ' &&  ant != ' ')
-                text[cont++] = c;
-            else if(c == '\n' &&  ant != '\n')
-                text[cont++] = c;
-        }else if(c != '\n' && c != ' ')
-            text[cont++] = c;
-    }*/
-    //printf("%s\n", text);
+
     String* texto = create_string(text);
+    N = strlen(text);
     Suffix** aSuf = create_suf_array(texto, N);
-    
-    int contexto = atoi(argv[3]);
+    int contexto;
     String* query;
     char aux[1000];
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
@@ -58,27 +45,58 @@ int main(int argc, char **argv){
                 print_suf_array(aSuf, N);
                 break;
             case 'o':
-                //qsort(aSuf, N, sizeof(Suffix*), comp_suf_array);
+                //printf(" ");
+                //qsort(aSuf[0], N, sizeof(Suffix) + sizeof(String), comp_suf_array);
                 sort_suf_array(aSuf, N);
                 print_suf_array(aSuf, N);
                 break;
             case 'r':
+                bubblesort(aSuf,N);
+                print_suf_array(aSuf, N);
+                printCounters("bubblesort");
+
+                selectionsort(aSuf,N);
+                print_suf_array(aSuf, N);
+                printCounters("selectionsort");
+
+                insertionsort(aSuf,N);
+                print_suf_array(aSuf, N);
+                printCounters("insertionsort");
+
+                shellsort(aSuf,N);
+                print_suf_array(aSuf, N);
+                printCounters("shellsort");
+
+                quicksort(aSuf,0,N-1);
+                print_suf_array(aSuf, N);
+                printCounters("quicksort");
+
+                mergesort(aSuf,0,N-1);
+                print_suf_array(aSuf, N);
+                printCounters("mergesort");
+
+                heapsort(aSuf,0,N-1);
+                print_suf_array(aSuf, N);
+                printCounters("heapsort");
+
                 break;
             case 'c':
+                contexto = atoi(argv[3]);
                 query = create_string(argv[4]);
                 sort_suf_array(aSuf, N);
                 procuraSuffix(aSuf, N, query, contexto, texto);
                 break;
             case 's':
+                contexto = atoi(argv[3]);
                 sort_suf_array(aSuf, N);
                 scanf("%[^\n]s", aux);
                 scanf("%*[^\n]");
                 scanf("%*c");
                 printf("|%s|\n", aux);
-                while(!isspace(aux[0])) {
+                while(!isspace(aux[0]) || strlen(aux)>1) {
                     query = create_string(aux);
                     procuraSuffix(aSuf, N, query, contexto, texto);
-                    scanf("%[^\n]", aux);
+                    scanf("%[^\n]s", aux);
                     scanf("%*[^\n]");
                     scanf("%*c");
                     printf("|%s|\n", aux);

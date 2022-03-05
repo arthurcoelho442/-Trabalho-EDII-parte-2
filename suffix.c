@@ -44,25 +44,19 @@ void print_suf_array(Suffix** a, int N){
 // Use uma (ou mais) funcoes deste tipo para ordenar
 // o arry de sufixos usando o qsort e outro metodo de sua escolha
 int comp_suf_array(const void *pa, const void * pb){
-    //const Suffix* a = pa;
-    //const Suffix* b = pb;
+    char* text = ((Suffix*)pa)->s->c;
+    char* str1 = text+((Suffix*)pa)->index;
+    char* str2 = text+((Suffix*)pb)->index;
     
-    //char* text = pa->s->c;
-    //printf("\n%s\n", text);
-    
-    //char* str1 = text+(a->index);
-    //char* str2 = text+(b->index);
-
-    return 0;//strcmp(str1, str2);
+    return strcmp(str1, str2);
 }
-void sort_suf_array(Suffix* *a, int N){
+void sort_suf_array(Suffix** a, int N){
     char* text = a[0]->s->c;
     
     for(int i=0; i<N-1; i++){
-        for(int j=i+1; j<N; j++){        
+        for(int j=i+1; j<N; j++){
             char* str1 = text+(a[i]->index);
             char* str2 = text+(a[j]->index);
-            
             if(strcmp(str1, str2) > 0){
                 Suffix* aux = a[j];
                 a[j] = a[i];
