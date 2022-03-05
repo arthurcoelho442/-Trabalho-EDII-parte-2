@@ -54,15 +54,13 @@ int comp_suf_array(const void *pa, const void * pb){
     char* str4 = str2.c+str2.len;
     return strcmp(str3, str4);
 }
-
-void sort_suf_array(Suffix* *a, int N){
+void sort_suf_array(Suffix** a, int N){
     char* text = a[0]->s->c;
     
     for(int i=0; i<N-1; i++){
-        for(int j=i+1; j<N; j++){        
+        for(int j=i+1; j<N; j++){
             char* str1 = text+(a[i]->index);
             char* str2 = text+(a[j]->index);
-            
             if(strcmp(str1, str2) > 0){
                 Suffix* aux = a[j];
                 a[j] = a[i];
@@ -79,6 +77,7 @@ void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto
         String* text = a[i]->s;
         igual = equals_substring(text, a[i]->index, text->len, query);
         if(igual){
+            //texto->c[query->len+a[i]->index]
             if(a[i]->index - contexto <=0){
                 indice_inicio = 0;
             } else {

@@ -26,8 +26,6 @@ void sort_suf_array(Suffix* *a, int N);
 
 int comp_suf_array(const void *pa, const void * pb);
 
-void another_suf_array(Suffix* *a, int N);
-
 void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto);
 
 int rank(Suffix* *a, int N, String *query);
