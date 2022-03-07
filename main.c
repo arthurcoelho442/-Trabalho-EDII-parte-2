@@ -41,6 +41,7 @@ int main(int argc, char **argv){
     char pesquisa[1000];
     double time;
     clock_t init, fim;
+    
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':

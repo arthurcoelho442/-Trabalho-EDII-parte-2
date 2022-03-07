@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "str.h"
 
 // Retorna o tamanho da string C, sem contar o terminador '\0'.
@@ -74,10 +75,15 @@ void print_str_array(String* *a, int N) {
 }
 
 bool equals_substring(String *text, int from, int to, String *query) {
-    //if (query->len < (to - from + 1)) { return false; }
-    for (int i = 0; i < query->len; i++) {
-        if(query->c[i] != text->c[from + i]) { return false; }
-    }
+    char q_Maiusculo;
+    char t_Maiusculo;
+
+    for (int i = 0; i < query->len; i++){
+        q_Maiusculo = toupper(query->c[i]);
+        t_Maiusculo = toupper(text->c[from + i]);
+        if(q_Maiusculo != t_Maiusculo) { return false; }
+    }  
+
     return true;
 }
 
