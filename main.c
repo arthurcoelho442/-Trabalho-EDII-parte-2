@@ -52,47 +52,72 @@ int main(int argc, char **argv){
                 qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);
                 print_suf_array(aSuf, N); 
 
-                int escolha, exit=0;
-                while(escolha){
+                int escolha=0, exit=0, estatisticas=0;
+
+                printf("\nImprimrir estatisticas");
+                printf("\n[1] - Nao");
+                printf("\n[2] - Sim");
+                printf("\nsua escolha: ");
+                scanf("%d", &estatisticas);
+                estatisticas--;
+
+                while(1){
                     printf("\nEscolha o proximo algoritmo de ordenacao");
                     printf("\n[1] - bubblesort");
                     printf("\n[2] - selectionsort");
                     printf("\n[3] - insertionsort");
                     printf("\n[4] - shellsort");
                     printf("\n[5] - quicksort");
-                    printf("\n[6] - heapsort\n");
+                    printf("\n[6] - heapsort");
+                    printf("\nsua escolha: ");
                     scanf("%d", &escolha);
+
+                    char alg[100];
+                    init = clock();                             //pega o clock atual
                     switch (escolha){
                         case 1://bubblesort
                             printf("\nMy sort: bubblesort\n");
+                            strcpy(alg, "bubblesort");
                             bubblesort(aSuf,N);
                             break;
                         case 2://selectionsort
-                            printf("\nMy sort: selectionsort\n");   
+                            printf("\nMy sort: selectionsort\n");
+                            strcpy(alg, "selectionsort");
                             selectionsort(aSuf,N);
                             break;
                         case 3://insertionsort
                             printf("\nMy sort: insertionsort\n");
+                            strcpy(alg, "insertionsort");
                             insertionsort(aSuf,N);
                             break;
                         case 4://shellsort
                             printf("\nMy sort: shellsort\n");
+                            strcpy(alg, "shellsort");
                             shellsort(aSuf,N);
                             break;
                         case 5://quicksort
                             printf("\nMy sort: quicksort\n");
+                            strcpy(alg, "quicksort");
                             quicksort(aSuf,0,N-1);
                             break;
                         case 6://heapsort
                             printf("\nMy sort: heapsort\n");
+                            strcpy(alg, "heapsort");
                             heapsort(aSuf,0,N-1);
                             break;
                         default :
                             exit = 1;
                             break;
                     }
+                    fim = clock();                              //pega clock final da execução do algoritmo
+                    time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                
                     if(exit == 1) break;
-                    else print_suf_array(aSuf, N);
+                    else {
+                        print_suf_array(aSuf, N);
+                        if (estatisticas)
+                            printCounters(alg, time);
+                    }
                 }
                 break;
             case 'r':
