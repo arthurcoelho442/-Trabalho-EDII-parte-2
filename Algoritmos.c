@@ -44,7 +44,17 @@ void printCounters(char *s, double time){
   printf("|%s comparacoes: %d, trocas %d, atribuicoes: %d|", s,compCount, exchCount, copyCount);
   resetCounters();   
 }
-    
+
+/*************************************************************
+** Utilizado para ordenar o array de sufixos usando o qsort **
+**************************************************************/
+int comp_suf_array(const void *pa, const void * pb){
+    char* str1 = (*(Suffix**)pa)->s->c + (*(Suffix**)pa)->index;
+    char* str2 = (*(Suffix**)pb)->s->c + (*(Suffix**)pb)->index;
+    compCount++;
+    return strcmp(str1, str2);
+}
+
 /*****************************************************
 *********            bubblesort             **********
 *****************************************************/

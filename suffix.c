@@ -47,13 +47,6 @@ void print_suf_array(Suffix** a, int N){
     }
 }
 
-// Utilizado para ordenar o array de sufixos usando o qsort
-int comp_suf_array(const void *pa, const void * pb){
-    char* str1 = (*(Suffix**)pa)->s->c + (*(Suffix**)pa)->index;
-    char* str2 = (*(Suffix**)pb)->s->c + (*(Suffix**)pb)->index;
-    return strcmp(str1, str2);
-}
-
 //Procura a query no vetor de suffixos
 void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto){
     int igual = 0, indice_inicio = 0, indice_final = 0;
