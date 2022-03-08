@@ -59,24 +59,21 @@ int main(int argc, char **argv){
             
             //Imprime Array de Sufixos Ordenadamente
             case 'o':
-                //Ordena com system qsort
-                printf("\nSystem qsort:\n");                                        
-                qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);
-                print_suf_array(aSuf, N); 
-
-                int escolha=0, exit=0, estatisticas=0;
-
-                printf("\nImprimrir estatisticas");
+                printf("Imprimrir estatisticas");
                 printf("\n[1] - Nao");
                 printf("\n[2] - Sim");
                 printf("\nsua escolha: ");
+                
+                int escolha=0, exit=0, estatisticas=0;
+                
                 scanf("%d", &estatisticas);
                 estatisticas--;
 
                 while(1){
                     destroy_suf_array(aSuf,N);
                     aSuf = create_suf_array(texto, N);
-                    printf("\nEscolha o proximo algoritmo de ordenacao");
+                    printf("\n\nEscolha o algoritmo de ordenacao");
+                    printf("\n[0] - qsort");
                     printf("\n[1] - bubblesort");
                     printf("\n[2] - selectionsort");
                     printf("\n[3] - insertionsort");
@@ -90,6 +87,12 @@ int main(int argc, char **argv){
                     char alg[100];
                     init = clock();                             //pega o clock atual
                     switch (escolha){
+                        //Ordena com qsort
+                        case 0:
+                            printf("\nMy sort: qsort\n");
+                            strcpy(alg, "qsort");
+                            qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);
+                            break;
                         //Ordena com bubblesort
                         case 1:
                             printf("\nMy sort: bubblesort\n");
