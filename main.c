@@ -36,11 +36,12 @@ int main(int argc, char **argv){
     String* texto = create_string(text);
     N = strlen(text);
     Suffix** aSuf = create_suf_array(texto, N);
-    int contexto;
+    int contexto, count = 0;
     String* query;
-    char pesquisa[1000];
+    char pesquisa[1024];
     double time;
     clock_t init, fim;
+    
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':
@@ -173,15 +174,37 @@ int main(int argc, char **argv){
             case 's':
                 contexto = atoi(argv[3]);
                 sort_suf_array(aSuf, N);
-                scanf("%[^\n]s", pesquisa);
-                scanf("%*[^\n]");
-                scanf("%*c");
-                while(!isspace(pesquisa[0]) || strlen(pesquisa)>1) {
+                // Pega a linha digitada
+                while(1){
+                    int c = fgetc(stdin);
+                    pesquisa[count++] = (char)c;
+                    if (c == '\n'){
+                        count--;
+                        break;
+                    }
+                }
+                pesquisa[count] = '\0';
+                // retorna caso não haja query
+                if (count == 0)
+                    return 0;
+                while(1) {
                     query = create_string(pesquisa);
                     procuraSuffix(aSuf, N, query, contexto, texto);
-                    scanf("%[^\n]s", pesquisa);
-                    scanf("%*[^\n]");
-                    scanf("%*c");
+                    printf("\n");
+                    // Pega a linha digitada
+                    count = 0;
+                    while(1){
+                        int c = fgetc(stdin);
+                        pesquisa[count++] = (char)c;
+                        if (c == '\n'){
+                            count--;
+                            break;
+                        }
+                    }
+                    pesquisa[count] = '\0';
+                    // retorna caso não haja query
+                    if (count == 0)
+                        return 0;
                     destroy_string(query);
                 }
                 break;
