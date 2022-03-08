@@ -212,8 +212,18 @@ int main(int argc, char **argv){
                 }
                 pesquisa[count] = '\0';
                 // retorna caso não haja query
-                if (count == 0)
+                if (count == 0){
+                    //Libera memoria alocada
+                    destroy_string(texto);
+                    destroy_suf_array(aSuf, N);
+                    destroy_string(query);
+
+                    //Fecha os arquivos
+                    fclose(entrada);
+                    fclose(saida);
+                    
                     return 0;
+                }
                 while(1) {
                     query = create_string(pesquisa);
                     procuraSuffix(aSuf, N, query, contexto, texto);
@@ -230,8 +240,19 @@ int main(int argc, char **argv){
                     }
                     pesquisa[count] = '\0';
                     // retorna caso não haja query
-                    if (count == 0)
+                    if (count == 0){
+                        //Libera memoria alocada
+                        destroy_string(texto);
+                        destroy_suf_array(aSuf, N);
+                        destroy_string(query);
+                        
+                        //Fecha os arquivos
+                        fclose(entrada);
+                        fclose(saida);
+
                         return 0;
+                    }
+
                     destroy_string(query);
                 }
                 break;
@@ -242,7 +263,7 @@ int main(int argc, char **argv){
     //Libera memoria alocada
     destroy_string(texto);
     destroy_suf_array(aSuf, N);
-    
+
     //Fecha os arquivos
     fclose(entrada);
     fclose(saida);
