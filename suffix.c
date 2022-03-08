@@ -3,6 +3,7 @@
 #include <string.h>
 #include "suffix.h"
 
+//Cria um suffixo com o id passado e a string
 Suffix* create_suffix(String *s, int index){
     Suffix *suf = (Suffix*)malloc(sizeof(Suffix));
     suf->index = index;
@@ -10,15 +11,18 @@ Suffix* create_suffix(String *s, int index){
     return suf;
 }
 
+//Libera da memoria um suffixo
 void destroy_suffix(Suffix *suf){
     free(suf);
 }
 
+//printda um suffixo
 void print_suffix(Suffix *suf){
     String* text = suf->s;
     print_substring(text, suf->index, text->len);
 }
 
+//Cria um vetor de suffixos
 Suffix** create_suf_array(String *text, int N){
     Suffix** a = malloc(N * sizeof(Suffix*));
     for(int i = 0; i < N; i++)
@@ -27,6 +31,7 @@ Suffix** create_suf_array(String *text, int N){
     return a;
 }
 
+//Destroi o vetor de suffixo
 void destroy_suf_array(Suffix** a, int N){
     for(int i = 0; i < N; i++)
         destroy_suffix(a[i]);
@@ -34,6 +39,7 @@ void destroy_suf_array(Suffix** a, int N){
     return;
 }
 
+//Printa todos os suffixo do vetor|
 void print_suf_array(Suffix** a, int N){
     for(int i = 0; i < N; i++){
         print_suffix(a[i]);
@@ -41,29 +47,14 @@ void print_suf_array(Suffix** a, int N){
     }
 }
 
-// Use uma (ou mais) funcoes deste tipo para ordenar
-// o arry de sufixos usando o qsort e outro metodo de sua escolha
+// Utilizado para ordenar o array de sufixos usando o qsort
 int comp_suf_array(const void *pa, const void * pb){
     char* str1 = (*(Suffix**)pa)->s->c + (*(Suffix**)pa)->index;
     char* str2 = (*(Suffix**)pb)->s->c + (*(Suffix**)pb)->index;
     return strcmp(str1, str2);
 }
-void sort_suf_array(Suffix** a, int N){
-    char* text = a[0]->s->c;
-    
-    for(int i=0; i<N-1; i++){
-        for(int j=i+1; j<N; j++){
-            char* str1 = text+(a[i]->index);
-            char* str2 = text+(a[j]->index);
-            if(strcmp(str1, str2) > 0){
-                Suffix* aux = a[j];
-                a[j] = a[i];
-                a[i] = aux;
-            }
-        }
-    }
-}
 
+//Procura a query no vetor de suffixos
 void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto){
     int igual = 0, indice_inicio = 0, indice_final = 0;
     for(int i = 0; i < N; i++){
@@ -87,4 +78,5 @@ void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto
     }
 }
 
+//Faz nada
 int rank(Suffix* *a, int N, String *query);

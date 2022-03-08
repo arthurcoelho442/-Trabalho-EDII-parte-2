@@ -5,20 +5,18 @@
 
 #define key(A) (A)
 #define less(A, B) strLess(A,B)
-#define exch(A, B) { Suffix* t = A; A = B; B = t; exchCount++; } 
+#define exch(A, B) { Suffix* t = A; A = B; B = t; exchCount++;} 
 #define copy(A, B) { A = B; copyCount++; }
 #define compexch(A, B) if (less(B, A)) exch(A, B)
 
 /***** contadores das operações ********/
-int compCount = 0;
-int chCompCount = 0;
-int exchCount  = 0;
-int copyCount  = 0;
+int compCount = 0;//Comparações
+int exchCount  = 0;//Trocas
+int copyCount  = 0;//Copias
 
 /***** (re)inicialização dos contadores *****/
 void resetCounters(){ 
-    compCount = 0; 
-    chCompCount = 0; 
+    compCount = 0;
     exchCount = 0;
     copyCount = 0;
 }
@@ -32,7 +30,6 @@ int strLess(Suffix *a, Suffix *b){
     
     compCount++;
     for(;;){
-        chCompCount++;
         if(text[idA] == '\0')  return (text[idB] != '\0');
         if(text[idB] == '\0')  return 0;
         if(text[idA] < text[idB]) return 1;
@@ -43,8 +40,8 @@ int strLess(Suffix *a, Suffix *b){
 
 /****    impressao das estatisticas dos algoritmos    ****/
 void printCounters(char *s, double time){
-  //printf("\n|%s comparacoes: %d char:%d trocas %d atribuicoes: %d|", s,compCount, chCompCount, exchCount, copyCount);
-  printf("|%s\t%lf (s)|\n", s, time);
+  printf("\n|%s                               %0.6lf (s)|\n", s, time);
+  printf("|%s comparacoes: %d, trocas %d, atribuicoes: %d|", s,compCount, exchCount, copyCount);
   resetCounters();   
 }
     
@@ -54,7 +51,6 @@ void printCounters(char *s, double time){
 
 void bubblesort(Suffix** a, int n){
     int i, j; 
-
     for(i = 1; i < n; i++)
         for(j = i; j > 0; j--) 
             compexch(a[j-1], a[j]);
@@ -104,7 +100,7 @@ void shellsort(Suffix** a,int n){
         while (j >= h && less(v, a[j-h])){ 
             copy(a[j],a[j-h]); j -= h; 
         }
-        copy(a[j],v); 
+        copy(a[j],v);
         }       
 }
 
@@ -125,7 +121,7 @@ int partition(Suffix** a, int l, int r) {
 }
 
 
-void quicksort(Suffix** a, int l, int r){ 
+void quicksort(Suffix** a, int l, int r){
     int i;
     if (r <= l) return;
     i = partition(a, l, r);
