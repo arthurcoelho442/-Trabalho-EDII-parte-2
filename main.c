@@ -6,6 +6,7 @@
 #include <ctype.h>
 #include "str.h"
 #include "suffix.h"
+#include "Algoritmos.h"
 
 int main(int argc, char **argv){
     FILE* entrada;                                          //Arquivo de entrada para o sistema
@@ -31,73 +32,188 @@ int main(int argc, char **argv){
         strcat(text, " ");
         strcat(text, palavra);
     }
-    /*char text[N];
-    fgetc(entrada);
-    int cont = 0;
-    while (!feof(entrada)){        
-        char c = fgetc(entrada);
-        if(cont>1){
-            char ant = text[cont-1];
-            if(c == ' ' &&  ant != ' ')
-                text[cont++] = c;
-            else if(c == '\n' &&  ant != '\n')
-                text[cont++] = c;
-        }else if(c != '\n' && c != ' ')
-            text[cont++] = c;
-    }*/
-    //printf("%s\n", text);
+
     String* texto = create_string(text);
+    N = strlen(text);
     Suffix** aSuf = create_suf_array(texto, N);
-    
-    int contexto;// = atoi(argv[3]);
+    int contexto, count = 0;
     String* query;
-    char aux[1000];
+    char pesquisa[1024];
+    double time;
+    clock_t init, fim;
+    
     while ((opt = getopt(argc, argv, "aorcs")) != -1){
         switch (opt) {
             case 'a':
                 print_suf_array(aSuf, N);
                 break;
             case 'o':
-                 printf("%ld\n\n", aSuf);
-                for(int i = 0; i < N; i++){
-                    printf("%ld\n", aSuf[i]);
+                printf("\nSystem qsort:\n");                                        
+                qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);
+                print_suf_array(aSuf, N); 
+
+                int escolha=0, exit=0, estatisticas=0;
+
+                printf("\nImprimrir estatisticas");
+                printf("\n[1] - Nao");
+                printf("\n[2] - Sim");
+                printf("\nsua escolha: ");
+                scanf("%d", &estatisticas);
+                estatisticas--;
+
+                while(1){
+                    printf("\nEscolha o proximo algoritmo de ordenacao");
+                    printf("\n[1] - bubblesort");
+                    printf("\n[2] - selectionsort");
+                    printf("\n[3] - insertionsort");
+                    printf("\n[4] - shellsort");
+                    printf("\n[5] - quicksort");
+                    printf("\n[6] - heapsort");
+                    printf("\nsua escolha: ");
+                    scanf("%d", &escolha);
+
+                    char alg[100];
+                    init = clock();                             //pega o clock atual
+                    switch (escolha){
+                        case 1://bubblesort
+                            printf("\nMy sort: bubblesort\n");
+                            strcpy(alg, "bubblesort");
+                            bubblesort(aSuf,N);
+                            break;
+                        case 2://selectionsort
+                            printf("\nMy sort: selectionsort\n");
+                            strcpy(alg, "selectionsort");
+                            selectionsort(aSuf,N);
+                            break;
+                        case 3://insertionsort
+                            printf("\nMy sort: insertionsort\n");
+                            strcpy(alg, "insertionsort");
+                            insertionsort(aSuf,N);
+                            break;
+                        case 4://shellsort
+                            printf("\nMy sort: shellsort\n");
+                            strcpy(alg, "shellsort");
+                            shellsort(aSuf,N);
+                            break;
+                        case 5://quicksort
+                            printf("\nMy sort: quicksort\n");
+                            strcpy(alg, "quicksort");
+                            quicksort(aSuf,0,N-1);
+                            break;
+                        case 6://heapsort
+                            printf("\nMy sort: heapsort\n");
+                            strcpy(alg, "heapsort");
+                            heapsort(aSuf,0,N-1);
+                            break;
+                        default :
+                            exit = 1;
+                            break;
+                    }
+                    fim = clock();                              //pega clock final da execução do algoritmo
+                    time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                
+                    if(exit == 1) break;
+                    else {
+                        print_suf_array(aSuf, N);
+                        if (estatisticas)
+                            printCounters(alg, time);
+                    }
                 }
-                printf("\n%ld   |   %ld\n", sizeof(Suffix), sizeof(String)); 
-                qsort(aSuf[0], N, sizeof(Suffix) + sizeof(String), comp_suf_array);
-                //sort_suf_array(aSuf, N);
-                print_suf_array(aSuf, N);
                 break;
             case 'r':
+                init = clock();                             //pega o clock atual
+                qsort((void*)aSuf, N, sizeof(char*), comp_suf_array);
+                fim = clock();                              //pega clock final da execução do algoritmo
+                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                printCounters("System qsort:", time);
+
+                init = clock();                             //pega o clock atual
+                bubblesort(aSuf,N);
+                fim = clock();                              //pega clock final da execução do algoritmo
+                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                printCounters("bubblesort", time);
+
+                init = clock();                             //pega o clock atual
+                selectionsort(aSuf,N);
+                fim = clock();                              //pega clock final da execução do algoritmo
+                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                printCounters("selectionsort", time);
+
+                init = clock();                             //pega o clock atual
+                insertionsort(aSuf,N);
+                fim = clock();                              //pega clock final da execução do algoritmo
+                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                printCounters("insertionsort", time);
+
+                init = clock();                             //pega o clock atual
+                shellsort(aSuf,N);
+                fim = clock();                              //pega clock final da execução do algoritmo
+                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                printCounters("shellsort", time);
+
+                init = clock();                             //pega o clock atual
+                quicksort(aSuf,0,N-1);
+                fim = clock();                              //pega clock final da execução do algoritmo
+                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                printCounters("quicksort", time);
+                
+                init = clock();                             //pega o clock atual
+                heapsort(aSuf,0,N-1);
+                fim = clock();                              //pega clock final da execução do algoritmo
+                time = (double)(fim - init)/CLOCKS_PER_SEC;//numero de clocks executados dividido por qtd de clocks executados em um segundo
+                printCounters("heapsort", time);
+                
                 break;
             case 'c':
                 contexto = atoi(argv[3]);
                 query = create_string(argv[4]);
                 sort_suf_array(aSuf, N);
                 procuraSuffix(aSuf, N, query, contexto, texto);
+                destroy_string(query);
                 break;
             case 's':
                 contexto = atoi(argv[3]);
                 sort_suf_array(aSuf, N);
-                scanf("%[^\n]s", aux);
-                scanf("%*[^\n]");
-                scanf("%*c");
-                printf("|%s|\n", aux);
-                while(!isspace(aux[0]) || strlen(aux)>1) {
-                    query = create_string(aux);
+                // Pega a linha digitada
+                while(1){
+                    int c = fgetc(stdin);
+                    pesquisa[count++] = (char)c;
+                    if (c == '\n'){
+                        count--;
+                        break;
+                    }
+                }
+                pesquisa[count] = '\0';
+                // retorna caso não haja query
+                if (count == 0)
+                    return 0;
+                while(1) {
+                    query = create_string(pesquisa);
                     procuraSuffix(aSuf, N, query, contexto, texto);
-                    scanf("%[^\n]s", aux);
-                    scanf("%*[^\n]");
-                    scanf("%*c");
-                    printf("|%s|\n", aux);
+                    printf("\n");
+                    // Pega a linha digitada
+                    count = 0;
+                    while(1){
+                        int c = fgetc(stdin);
+                        pesquisa[count++] = (char)c;
+                        if (c == '\n'){
+                            count--;
+                            break;
+                        }
+                    }
+                    pesquisa[count] = '\0';
+                    // retorna caso não haja query
+                    if (count == 0)
+                        return 0;
+                    destroy_string(query);
                 }
                 break;
             default:
                 break;
         }
     }
-    //destroy_string(query);
-    //destroy_string(texto);
-    //destroy_suf_array(aSuf, N);
+    destroy_string(texto);
+    destroy_suf_array(aSuf, N);
     fclose(entrada);
     fclose(saida);
     return EXIT_SUCCESS;
