@@ -28,3 +28,4 @@ void printCounters(char *s, double time);
 void resetCounters();
 
 #endif
+//Finalizado

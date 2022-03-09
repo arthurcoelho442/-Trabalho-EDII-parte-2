@@ -42,3 +42,4 @@ bool equals_substring(String *text, int from, int to, String *query);
 void print_substring(String *text, int from, int to);
 
 #endif
+//Finalizado

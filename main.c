@@ -10,12 +10,10 @@
 
 int main(int argc, char **argv){
     FILE* entrada;                                          //Arquivo de entrada para o sistema
-    FILE* saida;                                            //Arquivo de saida
     int opt;
     
-    //Abre o arquivo de Entrada e o de Saida
+    //Abre o arquivo de Entrada
     entrada = fopen(argv[2], "r+");
-    saida = fopen("saida.txt", "a+");
 
     //Verifica se o arquivo de Entrada existe
     if (entrada == NULL) {
@@ -281,9 +279,9 @@ int main(int argc, char **argv){
     destroy_string(texto);
     destroy_suf_array(aSuf, N);
 
-    //Fecha os arquivos
+    //Fecha o arquivo
     fclose(entrada);
-    fclose(saida);
     
     return EXIT_SUCCESS;
 }
+#Finalizado

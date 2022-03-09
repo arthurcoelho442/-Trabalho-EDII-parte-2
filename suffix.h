@@ -36,3 +36,4 @@ void procuraSuffix(Suffix* *a, int N, String* query, int contexto, String* texto
 int rank(Suffix* *a, int N, String *query);
 
 #endif
+//Finalizado
