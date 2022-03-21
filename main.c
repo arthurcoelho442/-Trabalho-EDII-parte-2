@@ -236,7 +236,6 @@ int main(int argc, char **argv){
 
                     //Fecha os arquivos
                     fclose(entrada);
-                    fclose(saida);
                     
                     return 0;
                 }
@@ -264,7 +263,6 @@ int main(int argc, char **argv){
                         
                         //Fecha os arquivos
                         fclose(entrada);
-                        fclose(saida);
 
                         return 0;
                     }
@@ -281,7 +279,5 @@ int main(int argc, char **argv){
 
     //Fecha o arquivo
     fclose(entrada);
-    
     return EXIT_SUCCESS;
 }
-#Finalizado
