@@ -281,3 +281,4 @@ int main(int argc, char **argv){
     fclose(entrada);
     return EXIT_SUCCESS;
 }
+//Finalizado
