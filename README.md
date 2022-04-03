@@ -9,8 +9,9 @@ Dado um texto com N caracteres, encontrar todas as ocorrências de uma string Q 
 seguindo o modelo de entrada ./a.out [-aorcs] caminho_arquivo [contexto] [query]
 
 para [-aorcs] temos as seguintes parâmetros:
-	(a) Processa o texto e imprime o array de sufixos
-	(o) Processa o texto e imprime o array de sufixos ordenado
-  (r) Processa o texto, produz o array de sufixo, ordena usando dois (ou mais) métodos e imprime o tempo de ordenação para cada método.
-	(c) Dado um contexto e uma query, imprime as ocorrências encontradas
-  (s) Dado um contexto, lê queries do teclado e imprime as ocorrências encontradas, até que uma string vazia seja informada.
+	
+- (a) Processa o texto e imprime o array de sufixos
+- (o) Processa o texto e imprime o array de sufixos ordenado
+- (r) Processa o texto, produz o array de sufixo, ordena usando dois (ou mais) métodos e imprime o tempo de ordenação para cada método.
+- (c) Dado um contexto e uma query, imprime as ocorrências encontradas
+- (s) Dado um contexto, lê queries do teclado e imprime as ocorrências encontradas, até que uma string vazia seja informada.
